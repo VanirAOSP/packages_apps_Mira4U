@@ -1,29 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Miracast for You</string>
-    <string name="p2p_name">P2p Sink</string>
-    <string name="set_name">Settings</string>
-
-    <string name="lbl_Source">Source</string>
-    <string name="lbl_Sink">Sink</string>
-    <string name="lbl_IP">(IP Address)</string>
-    <!-- 7236 = default port -->
-    <string name="lbl_Port">7236</string>
-    <string name="lbl_fwwifisource">F/W Wi-Fi Source listen on _ </string>
-    <string name="lbl_fwwfdsource">F/W Wi-Fi wfd Source listen on _ </string>
-    <string name="lbl_fwwifisink">F/W Wi-Fi Sink connect to _ </string>
-    <string name="lbl_fwp2psink">F/W p2p Sink Activity</string>
-
-    <string name="lbl_killwfd">kill wfd</string>
-
-    <string name="err_no_ip">No Valid Networks. Try Connect a Network.</string>
+    <string name="app_name">Miracast</string>
+    <string name="p2p_name">P2p Sink 守护进程</string>
+    <string name="wfd_name">Wfd 活动</string>
 
 <!-- Settings -->
-    <string name="checkbox_log">Diabled Log Output</string>
-    <string name="checkbox_hdcp">Skip HDCP Authentication</string>
-    <string name="checkbox_timeout">Extend Timeout Time</string>
+    <string name="cat_source">来源设置</string>
+    <string name="cat_sink">Sink 设置</string>
+    <string name="cat_dev">开发者设置</string> 
 
-    <string name="checkbox_log_summary">for Better Performance</string>
-    <string name="checkbox_hdcp_summary">If HDCP Authentication Error Occurred, Try This Option</string>
-    <string name="checkbox_timeout_summary">RTSP Timeout Time Extend(15 -> 30secs)</string>
+<!-- Source -->
+    <string name="checkbox_log">启用发送logcat的输出</string>
+    <string name="checkbox_log_summary">开发者用来确认 RTSP 记录.</string>
+
+    <string name="checkbox_hdcp">跳过 HDCP 认证</string>
+    <string name="checkbox_hdcp_summary">若不能通过 HDCP 认证可尝认使用这个功能</string>
+
+    <string name="checkbox_fullhd">使用全高清影像</string>
+    <string name="checkbox_fullhd_summary">1280 x 720  -> 1920 x 1080</string>
+
+    <string name="checkbox_brchange">强行改变比特率</string>
+    <string name="checkbox_brchange_summary">选择比特率</string>
+
+    <string name="bitrate">改变比特率</string>
+    <string name="bitrate_summary">%1$s</string>
+    <string name="bitrate_summary_1st">可用范围 1000000-20000000</string>
+
+    <string name="checkbox_fpschange">强行强变 FPS</string>
+    <string name="checkbox_fpschange_summary">选择 FPS</string>
+
+    <string name="framerate">改变显示帧数</string>
+    <string name="framerate_summary">%1$s Hz</string>
+    <string name="framerate_summary_1st">选项 10, 20, 30, 40, 50, 60 Hz</string>
+
+    <string name="checkbox_timeout">延长连接超时值</string>
+    <string name="checkbox_timeout_summary">RTSP 连接超时值由15秒增至30秒. 此方案所需的OTA封装权限（需要framework.jar）.</string>
+
+    <string name="checkbox_timesyncer">启用声画同步</string>
+    <string name="checkbox_timesyncer_summary">Robust(鲁棒)连接到AOSP4.4用</string>
+
+    <string name="button_wfd_exec">! 打开无线显示设置</string>
+    <string name="button_wfd_exec_summary">执行设置工具</string>
+
+<!-- Sink -->
+    <string name="checkbox_sinkrotate">禁用画面旋转</string>
+    <string name="checkbox_sinkrotate_summary">MHL 手指专用</string>
+
+    <string name="checkbox_specialmode">特别模式(?)</string>
+    <string name="checkbox_specialmode_summary">特别模式使用 UDP RTCP 后备通道连接.</string>
+
+    <string name="button_sink_exec">! 打开 P2p Sink 守设进程序</string>
+    <string name="button_sink_exec_summary">打开接收进程</string>
+
+<!-- Dev -->
+    <string name="checkbox_apptoast">禁用提示</string>
+    <string name="checkbox_apptoast_summary"></string>
+
+    <string name="button_wfddev_exec">! 启用Wfd 守设进程序</string>
+    <string name="button_wfddev_exec_summary">加强往后兼容</string>
+
+<!-- wfd dev -->
+    <string name="lbl_Source">来源</string>
+    <string name="lbl_Sink">Sink</string>
+    <string name="lbl_IP">(IP 地址)</string>
+    <!-- 7236 = default port -->
+    <string name="lbl_Port">7236</string>
+    <string name="lbl_fwwifisource">F/W 监测 Wi-Fi 信号来源 _ </string>
+    <string name="lbl_fwwfdsource">F/W 监测 Wi-Fi wfd 信号来源 _ </string>
+    <string name="lbl_fwwifisink">F/W 监测 Wi-Fi Sink 信号来源_ </string>
+    <string name="lbl_fwp2psink">P2p Sink</string>
+
+    <string name="lbl_killwfd">清除 wfd进程</string>
+
+    <string name="err_no_ip">没有找到任何网络. 请先连接.</string>
+
 </resources>

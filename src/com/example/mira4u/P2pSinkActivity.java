@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.NetworkInfo;
@@ -669,11 +670,21 @@ public class P2pSinkActivity extends Activity {
                 addLog(toStringDevice(device));
 
                 // Search
-                if (mIsWiFiDirectEnabled) {
+                if (mIsWiFiDirectEnabled && !isConnected(device)) {
                     onClickDiscoverPeers(null);
                 }
             }
         }
+
+    // 接続状態検出
+    private boolean isConnected(WifiP2pDevice device) {
+       if (device == null) { 
+            return false;
+        }
+
+        return device.status == WifiP2pDevice.CONNECTED;
+    }
+
     }
 
     /**
@@ -913,9 +924,58 @@ public class P2pSinkActivity extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                MainActivity.invokeSink(ip, port);
+                invokeSink(ip, port);
             }
         }, delaySec*1000);
+    }
+
+    private void invokeSink(String ip, int port) {
+        Log.d(TAG, "invokeSink() Source Addr["+ip+":"+port+"]");
+        new AvoidANRThread(ip, port).start();
+        Toast.makeText(this, "invokeSink() called nativeInvokeSink("+ip+":"+port+")", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Avoid ANR
+     */
+    private class AvoidANRThread extends Thread {
+        private final String ip;
+        private final int port;
+
+        AvoidANRThread(String _ip, int _port) {
+            ip = _ip;
+            port = _port;
+        }
+
+        public void run() {
+	    nativeInvokeSink(ip, port, getSpecialMode());
+        }
+    }
+
+    /**
+     * JNI:invoke Sink
+     */
+    private static native void nativeInvokeSink(String ip, int port, int special);
+
+    /**
+     * invoke Settings Activity
+     */
+    private void gotoSettings() {
+        String pac = "com.example.mira4u";
+
+        Intent i = new Intent();
+        i.setClassName(pac, pac + ".SettingsActivity");
+        startActivity(i);
+    }
+
+    static {
+        System.loadLibrary("Mira4U");
+    }
+
+    private int getSpecialMode() {
+        SharedPreferences pref = getSharedPreferences("prefs", Context.MODE_WORLD_READABLE);
+        String s = pref.getString("persist.sys.wfd.specialmode", "0");
+        return s.equals("1") ? 1 : 0;
     }
 
 }
